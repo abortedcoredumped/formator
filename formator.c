@@ -2,9 +2,29 @@
 #include <stdlib.h>
 #include "strutil.h"
 
-int main(void)
+void usage()
 {
-    FILE *fp = fopen("txt.cpp", "r");
+    printf(
+        "Usage: formator [OPTION] [FILE]\n"
+        "OPTION:\n"
+        "\t-s    Camel to snake\n"
+        "\t-c    Snake to camel\n"
+    );
+}
+
+int main(int argc, const char **args)
+{
+    int o = 0;
+    if (argc == 3 && args[1][0] == '-' && args[1][1] == 's') {
+        o = 1;
+    } else if (argc == 3 && args[1][0] == '-' && args[1][1] == 'c') {
+        o = 2;
+    } else {
+        usage();
+        return 0;
+    }
+
+    FILE *fp = fopen(args[2], "r");
 
     if (!fp) {
         printf("No such file!\n");
@@ -38,13 +58,6 @@ int main(void)
 
     src[len] = 0;
 
-    printf("Choose your decision:\n");
-    printf("1: Camel to snake\n");
-    printf("2: Snake to camel\n");
-    printf("Choose: ");
-    int d = 0;
-    scanf("%d", &d);
-
     char *dest = malloc(2 * len + 1);
 
     if (!dest) {
@@ -55,9 +68,9 @@ int main(void)
         exit(1);
     }
 
-    if (d == 1) 
+    if (o == 1) 
         camel_to_snake(dest, src);
-    else if (d == 2)
+    else if (o == 2)
         snake_to_camel(dest, src);
     else {
         free(dest);
@@ -68,7 +81,7 @@ int main(void)
         
 
     fclose(fp);
-    fp = fopen("txt.cpp", "w");
+    fp = fopen(args[2], "w");
 
     if (!fp) {
         printf("Error when doing output!\n");
@@ -82,6 +95,8 @@ int main(void)
         fputc(*p, fp);
         p++;
     }
+
+    printf("Done!\n");
 
     free(dest);
     free(src);
