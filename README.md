@@ -1,3 +1,3 @@
 Note, this project is based on `strutil` library.
 
-For detail, see [github.com/abortedcoredumped/strutil]
+For detail, see <https://github.com/abortedcoredumped/strutil>
