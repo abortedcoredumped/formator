@@ -46,7 +46,7 @@ int main(int argc, const char **args)
     
     if (!src) {
         printf("!!! Bad Alloc !!!\n");
-        printf("At 0x%p (src)\n", src);
+        printf("At 0x%llX (src)\n", (unsigned long long)src);
         fclose(fp);
         exit(1);
     }
@@ -62,7 +62,7 @@ int main(int argc, const char **args)
 
     if (!dest) {
         printf("!!! Bad Alloc !!!\n");
-        printf("At 0x%p (dest)\n", dest);
+        printf("At 0x%llX (dest)\n", (unsigned long long)dest);
         free(src);
         fclose(fp);
         exit(1);
